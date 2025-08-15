@@ -1,4 +1,4 @@
-module github.com/sandeepv133/EmployeeService
+module github.com/sandeepv133/EmpService
 
 go 1.24.5
 
