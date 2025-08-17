@@ -1,7 +1,7 @@
 package models
 
 import (
-	"time"
+	// "time"
 
 	"github.com/jinzhu/gorm"
 	"github.com/sandeepv133/EmpService/pkg/config"
@@ -11,17 +11,15 @@ var db *gorm.DB
 
 type Employee struct {
 	gorm.Model
-	Id                   int       `json:"id"`
-	First_name           string    `json:"first_name"`
-	Middle_name          string    `json:"middle_name"`
-	Last_name            string    `json:"last_name"`
-	Dob                  time.Time `json:"dob"`
-	Hire_date            time.Time `json:"hire_date"`
-	Created_date_time    time.Time `json:"created_date_time"`
-	Stat                 string    `json:"stat"`
-	Email                string    `json:"email"`
-	Phone_number         string    `json:"phone_number"`
-	Profile_pic_location string    `json:"profile_pic_location"`
+	First_name  string `json:"first_name"`
+	Middle_name string `json:"middle_name"`
+	Last_name   string `json:"last_name"`
+	// Dob                  time.Time `json:"dob"`
+	// Hire_date            time.Time `json:"hire_date"`
+	Stat                 string `json:"stat"`
+	Email                string `json:"email"`
+	Phone_number         string `json:"phone_number"`
+	Profile_pic_location string `json:"profile_pic_location"`
 }
 
 func init() {

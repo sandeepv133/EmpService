@@ -16,7 +16,7 @@ var NewEmployee models.Employee
 func GetAllEmployees(w http.ResponseWriter, r *http.Request) {
 	NewEmployees := models.GetAllEmployees()
 	res, _ := json.Marshal(NewEmployees)
-	w.Header().Set("Content-Type", "pkglication/json")
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
 }
@@ -30,7 +30,7 @@ func GetEmployeeById(w http.ResponseWriter, r *http.Request) {
 	}
 	employeeDetails, _ := models.GetEmployeeById(Id)
 	res, _ := json.Marshal(employeeDetails)
-	w.Header().Set("Content-Type", "pkglication/json")
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
 }
@@ -47,13 +47,16 @@ func CreateEmployee(w http.ResponseWriter, r *http.Request) {
 func DeleteEmployee(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	employeeId := vars["employeeId"]
+	fmt.Printf("Vars: %v\n", vars)
+	fmt.Printf("employeeId: %s\n", employeeId)
+
 	Id, err := strconv.ParseInt(employeeId, 0, 0)
 	if err != nil {
 		fmt.Println("Error while parsing")
 	}
 	employee := models.DeleteEmployee(Id)
 	res, _ := json.Marshal(employee)
-	w.Header().Set("Content-Type", "pkglication/json")
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
 }
@@ -77,15 +80,12 @@ func UpdateEmployee(w http.ResponseWriter, r *http.Request) {
 	if updateEmployee.Middle_name != "" {
 		employeeDetails.Middle_name = updateEmployee.Middle_name
 	}
-	if updateEmployee.Dob.IsZero() {
-		employeeDetails.Dob = updateEmployee.Dob
-	}
-	if updateEmployee.Hire_date.IsZero() {
-		employeeDetails.Hire_date = updateEmployee.Hire_date
-	}
-	if updateEmployee.Created_date_time.IsZero() {
-		employeeDetails.Created_date_time = updateEmployee.Created_date_time
-	}
+	// if updateEmployee.Dob.IsZero() {
+	// 	employeeDetails.Dob = updateEmployee.Dob
+	// }
+	// if updateEmployee.Hire_date.IsZero() {
+	// 	employeeDetails.Hire_date = updateEmployee.Hire_date
+	// }
 	if updateEmployee.Stat != "" {
 		employeeDetails.Stat = updateEmployee.Stat
 	}
@@ -100,7 +100,7 @@ func UpdateEmployee(w http.ResponseWriter, r *http.Request) {
 	}
 	db.Save(&employeeDetails)
 	res, _ := json.Marshal(employeeDetails)
-	w.Header().Set("Content-Type", "pkglication/json")
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(res)
 }
