@@ -68,7 +68,7 @@ func UpdateEmployee(w http.ResponseWriter, r *http.Request) {
 	employeeId := vars["employeeId"]
 	Id, err := strconv.ParseInt(employeeId, 0, 0)
 	if err != nil {
-		fmt.Println("Error while parsing")
+		fmt.Println("Error while parsing", err)
 	}
 	employeeDetails, db := models.GetEmployeeById(Id)
 	if updateEmployee.First_name != "" {
