@@ -1,8 +1,6 @@
 package models
 
 import (
-	// "time"
-
 	"github.com/jinzhu/gorm"
 	"github.com/sandeepv133/EmpService/pkg/config"
 )
@@ -49,8 +47,14 @@ func GetEmployeeById(Id int64) (*Employee, *gorm.DB) {
 
 func DeleteEmployee(Id int64) Employee {
 	var employee Employee
+	db.Where("id = ?", Id).First(&employee)
+	if employee.Stat == "Active" {
+		db.Model(&employee).Update("stat", "Inactive") // <-- writes to DB
+		employee.Stat = "Inactive"                     // keep in-memory copy in sync
+	}
 	db.Where("Id=?", Id).Delete(employee)
 	return employee
+
 }
 
 func UpdateEmployee(Id int64) Employee {
